@@ -19,9 +19,9 @@ In this tutorial, we'll guide you through the process of creating an application
 1. **Navigate to App Registration Page:**
    Open your browser and go to the following URL:
    ```
-   https://[your-tenant].sharepoint.com/sites/[your-site]/_layouts/15/AppRegNew.aspx
+   https://[your-tenant].sharepoint.com/sites/{site_path}/_layouts/15/AppRegNew.aspx
    ```
-   Replace `[your-tenant]` and `[your-site]` with your actual SharePoint tenant and site name.
+   Replace `[your-tenant]` and `{site_path}` with your actual SharePoint tenant and site name.
 
 2. **Register a New App:**
    Fill in the following details:
@@ -39,9 +39,9 @@ In this tutorial, we'll guide you through the process of creating an application
 1. **Navigate to App Permissions Page:**
    Open your browser and go to:
    ```
-   https://[your-tenant].sharepoint.com/sites/[your-site]/_layouts/15/appinv.aspx
+   https://[your-tenant].sharepoint.com/sites/{site_path}/_layouts/15/appinv.aspx
    ```
-   Replace `[your-tenant]` and `[your-site]` with your actual SharePoint tenant and site name.
+   Replace `[your-tenant]` and `{site_path}` with your actual SharePoint tenant and site name.
 
 2. **Enter App Information:**
    - **App Id:** Enter the Client Id you generated in Step 1 and click "Lookup". The app’s details should appear below.
@@ -75,27 +75,42 @@ from office365.sharepoint.client_context import ClientContext
 from office365.runtime.auth.client_credential import ClientCredential
 import os
 
-# SharePoint site and document library details
-site_url = "https://[your-tenant].sharepoint.com/sites/[your-site]"
-document_library = "Shared Documents"
-file_name = "example.docx"  # The file you want to copy
-local_path = os.path.join(os.getcwd(), file_name)
+# SharePoint Information
+tenant_name = "example"
+site_path = "mysite/subsite"
+document_library = "Received"
+
+site_url = f"https://{tenant_name}.sharepoint.com/sites/{site_path}"
+
+# The File you want to copy
+file_name = "example.docx" 
 
 # Application credentials
 client_id = "[your-client-id]"
 client_secret = "[your-client-secret]"
 
+# Local Server Information
+local_folder_path = "c:\\files"
+
+# Save the file in the same directory as the script
+# local_path = os.path.join(os.getcwd(), file_name)
+
+# Save the file in a specific directory (set `local_folder_path` above)
+local_path = os.path.join(local_folder_path, file_name)
+
+# --- No Need to Edit Below Here ---
+
 # Authenticate and connect to SharePoint
 ctx = ClientContext(site_url).with_credentials(ClientCredential(client_id, client_secret))
 
 # Get the file from the document library
-file_url = f"/sites/[your-site]/{document_library}/{file_name}"
+file_url = f"/sites/{site_path}/{document_library}/{file_name}"
 response = ctx.web.get_file_by_server_relative_url(file_url).download(local_path).execute_query()
 
 print(f"File '{file_name}' has been downloaded to '{local_path}'")
 ```
 
-Replace the placeholders (`[your-client-id]`, `[your-client-secret]`, `[your-tenant]`, `[your-site]`, and `example.docx`) with your actual SharePoint details and credentials.
+Set the values for the following, in the beginning of the script (`[your-client-id]`, `[your-client-secret]`, `[your-tenant]`, `{site_path}`, and `example.docx`) with your actual SharePoint details and credentials.
 
 ### Step 4: Run the Python Script
 
