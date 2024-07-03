@@ -19,9 +19,9 @@ In this tutorial, we'll guide you through the process of creating an application
 1. **Navigate to App Registration Page:**
    Open your browser and go to the following URL:
    ```
-   https://[your-tenant].sharepoint.com/sites/{site_path}/_layouts/15/AppRegNew.aspx
+   https://{tenant_name}.sharepoint.com/sites/{site_path}/_layouts/15/AppRegNew.aspx
    ```
-   Replace `[your-tenant]` and `{site_path}` with your actual SharePoint tenant and site name.
+   Replace `{tenant}` and `{site_path}` with your actual SharePoint tenant and site name.
 
 2. **Register a New App:**
    Fill in the following details:
@@ -39,9 +39,9 @@ In this tutorial, we'll guide you through the process of creating an application
 1. **Navigate to App Permissions Page:**
    Open your browser and go to:
    ```
-   https://[your-tenant].sharepoint.com/sites/{site_path}/_layouts/15/appinv.aspx
+   https://{tenant_name}.sharepoint.com/sites/{site_path}/_layouts/15/appinv.aspx
    ```
-   Replace `[your-tenant]` and `{site_path}` with your actual SharePoint tenant and site name.
+   Replace `{tenant_name}` and `{site_path}` with your actual SharePoint tenant and site name.
 
 2. **Enter App Information:**
    - **App Id:** Enter the Client Id you generated in Step 1 and click "Lookup". The app’s details should appear below.
@@ -78,7 +78,7 @@ import os
 # SharePoint Information
 tenant_name = "example"
 site_path = "mysite/subsite"
-document_library = "Received"
+document_library = "received"
 
 site_url = f"https://{tenant_name}.sharepoint.com/sites/{site_path}"
 
@@ -110,7 +110,7 @@ response = ctx.web.get_file_by_server_relative_url(file_url).download(local_path
 print(f"File '{file_name}' has been downloaded to '{local_path}'")
 ```
 
-Set the values for the following, in the beginning of the script (`[your-client-id]`, `[your-client-secret]`, `[your-tenant]`, `{site_path}`, and `example.docx`) with your actual SharePoint details and credentials.
+Set the values for the following, in the beginning of the script (`[your-client-id]`, `[your-client-secret]`, `{tenant_name}`, `{site_path}`, and `example.docx`) with your actual SharePoint details and credentials.
 
 ### Step 4: Run the Python Script
 
